@@ -1,38 +1,22 @@
 # Imobiliária MVP
 
 ## Descrição
-API para cadastro e listagem de imóveis, desenvolvida com FastAPI e PostgreSQL.
+Projeto MVP de uma imobiliária, com backend em FastAPI + PostgreSQL e frontend em React + Vite.  
+Permite cadastro, listagem de imóveis e autenticação de usuários via JWT.
 
 ## Tecnologias
-- Backend: Python + FastAPI
-- Banco de dados: PostgreSQL + SQLAlchemy
-- Testes: Postman
-- Servidor: Uvicorn
+- **Backend:** Python, FastAPI, SQLAlchemy
+- **Frontend:** React, Vite, TypeScript
+- **Banco de dados:** PostgreSQL
+- **Autenticação:** JWT
+- **Testes:** Postman
+- **Servidor:** Uvicorn
 
-## Endpoints
-- **GET /imoveis**: Lista todos os imóveis.
-- **POST /imoveis**: Cadastra um imóvel.
-  - Campos: `titulo`, `preco`, `descricao`
+## Funcionalidades
+- Cadastro de usuários (senha criptografada)
+- Login com JWT
+- Listagem de imóveis (rota protegida, só usuários logados)
+- Cadastro de imóveis
+- Frontend consumindo a API com React + Axios
 
-## Como rodar localmente
-1. Criar ambiente virtual:
-   ```bash
-   python -m venv venv
-
-Ativar ambiente virtual:
-
-venv\Scripts\activate
-
-
-Instalar dependências:
-
-pip install -r requirements.txt
-
-
-Rodar a API:
-
-uvicorn main:app --reload
-
-Observações
-
-Documentação automática disponível em: http://127.0.0.1:8000/docs
+## Estrutura do Projeto
