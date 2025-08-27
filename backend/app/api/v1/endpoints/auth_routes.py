@@ -1,13 +1,14 @@
+# app/api/v1/endpoints/auth_routes.py
 from fastapi import APIRouter, HTTPException
 from sqlalchemy.orm import Session
 from app.schemas.auth import UserCreate, Token
 from app.core.security import verify_password, create_access_token
 from app.db.session import SessionLocal
-from app.models import User
+from app.db.models import User
 
 router = APIRouter()
 
-@router.post("/auth/login", response_model=Token)
+@router.post("/login", response_model=Token)
 def login(user: UserCreate):
     db: Session = SessionLocal()
     db_user = db.query(User).filter(User.email == user.email).first()

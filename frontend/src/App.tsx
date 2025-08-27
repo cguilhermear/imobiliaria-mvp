@@ -1,48 +1,26 @@
-import { useState, useEffect } from "react";
+import React from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import PropertiesList from "./pages/PropertiesList";
-import api from "./services/api";
+import PropertyForm from "./pages/PropertyForm";
+import ProtectedRoute from "./components/ProtectedRoute";
+import Header from "./components/Header";
 
-function App() {
-  const [token, setToken] = useState(localStorage.getItem("token"));
-
-  // Sempre que o token mudar, atualizamos o axios
-  useEffect(() => {
-    if (token) {
-      api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    } else {
-      delete api.defaults.headers.common["Authorization"];
-    }
-  }, [token]);
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setToken(null);
-  };
-
-  if (!token) {
-    return <Login onLogin={(t) => setToken(t)} />;
-  }
-
+const App: React.FC = () => {
   return (
-    <div>
-      <button
-        onClick={handleLogout}
-        style={{
-          padding: "8px 16px",
-          margin: 20,
-          backgroundColor: "#ff4d4f",
-          color: "#fff",
-          border: "none",
-          borderRadius: 6,
-          cursor: "pointer",
-        }}
-      >
-        Logout
-      </button>
-      <PropertiesList />
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/imoveis" element={<PropertiesList />} />
+          <Route path="/imoveis/novo" element={<PropertyForm />} />
+          <Route path="/imoveis/:propertyId" element={<PropertyForm />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/imoveis" replace />} />
+      </Routes>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;

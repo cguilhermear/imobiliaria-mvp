@@ -1,42 +1,22 @@
-from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session
-from database import SessionLocal, engine, Base
-from models import Imovel as ImovelModel
-from pydantic import BaseModel
-from typing import List
+# app/main.py
+from fastapi import FastAPI
+from app.db.models import Base
+from app.db.session import engine
+from app.api.api import api_router
 
-app = FastAPI()
-
-# Criar todas as tabelas no banco (se não existirem)
+# Criar tabelas
 Base.metadata.create_all(bind=engine)
 
-# Dependency para pegar sessão do banco
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
+app = FastAPI(
+    title="API Imobiliária",
+    description="API para gerenciamento de imóveis com autenticação JWT",
+    version="1.0.0"
+)
 
-# Modelo Pydantic para receber dados
-class Imovel(BaseModel):
-    titulo: str
-    preco: float
-    descricao: str
+# Rota raiz
+@app.get("/")
+def home():
+    return {"message": "API Imobiliária rodando 🚀"}
 
-    class Config:
-        orm_mode = True
-
-# GET: listar imóveis
-@app.get("/imoveis", response_model=List[Imovel])
-def listar_imoveis(db: Session = Depends(get_db)):
-    return db.query(ImovelModel).all()
-
-# POST: adicionar imóvel
-@app.post("/imoveis", response_model=Imovel)
-def adicionar_imovel(imovel: Imovel, db: Session = Depends(get_db)):
-    novo = ImovelModel(**imovel.dict())
-    db.add(novo)
-    db.commit()
-    db.refresh(novo)
-    return novo
+# Registrar rotas
+app.include_router(api_router)
