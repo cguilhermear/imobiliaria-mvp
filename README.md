@@ -24,6 +24,24 @@ Rotas protegidas com <ProtectedRoute />
 
 Interface responsiva e estilizada com Tailwind CSS
 
+🔹 Demonstração Visual
+Signup e Login
+
+
+Criação de conta e login automático.
+
+Listagem de Imóveis
+
+
+Visualização de todos os imóveis cadastrados.
+
+Criar e Editar Imóveis
+
+
+Adicionar, editar e deletar imóveis diretamente da interface.
+
+Dica: Gere os GIFs capturando sua tela enquanto interage com o frontend. Salve em frontend/src/assets/ e atualize os links acima.
+
 ⚙️ Tecnologias
 Backend
 
@@ -87,12 +105,13 @@ Frontend:
 
 frontend/
 ├── src/
-│   ├── components/    # Componentes React
-│   ├── context/       # Contexto Auth
-│   ├── hooks/         # Hooks customizados
-│   ├── pages/         # Telas da aplicação (Login, Signup, PropertiesList, PropertyForm)
-│   ├── services/      # Serviços Axios
-│   ├── types/         # Tipos TypeScript
+│   ├── components/    
+│   ├── context/       
+│   ├── hooks/         
+│   ├── pages/         
+│   ├── services/      
+│   ├── types/         
+│   ├── assets/        # Aqui vão os GIFs e imagens
 │   ├── App.tsx
 │   ├── main.tsx
 │   └── index.css
@@ -100,23 +119,16 @@ frontend/
 
 🚀 Setup Rápido
 Backend
-
-Criar e ativar ambiente virtual:
-
 cd app
 python -m venv venv
 # Linux / Mac
 source venv/bin/activate
 # Windows
 venv\Scripts\activate
-
-
-Instalar dependências:
-
 pip install -r requirements.txt
 
 
-Criar arquivo .env:
+Criar .env:
 
 DATABASE_URL=postgresql://postgres:senha@localhost:5432/imobiliaria_mvp
 SECRET_KEY=sua_chave_secreta
@@ -124,43 +136,29 @@ ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=60
 
 
-Rodar a API:
+Rodar API:
 
 uvicorn app.main:app --reload --port 8000
 
 Frontend
-
-Instalar dependências:
-
 cd frontend
 npm install
 
 
-Criar arquivo .env:
+Criar .env:
 
 VITE_API_URL=http://localhost:8000
 
 
-Rodar o frontend:
+Rodar frontend:
 
 npm run dev
 
-
-🔗 Links Úteis:
-
-Backend: http://localhost:8000
-
-Frontend: http://localhost:5173
-
-Swagger API Docs: http://localhost:8000/docs
-
 🏃‍♂️ Uso Rápido
 
-Acesse /signup para criar uma conta (usuário já logado após cadastro).
+/signup → Criar conta (já loga automaticamente)
 
-Acesse /login caso já tenha conta.
-
-Gerencie imóveis:
+/login → Login de usuários existentes
 
 /imoveis → Listagem de imóveis
 
@@ -168,7 +166,7 @@ Gerencie imóveis:
 
 /imoveis/:propertyId → Editar imóvel
 
-Excluir via botão na lista
+Botão de excluir na listagem
 
 🔹 Alterações recentes
 
@@ -183,4 +181,5 @@ Conectado PropertiesList.tsx e PropertyForm.tsx ao backend
 Todas requisições usam token do AuthContext
 
 App.tsx atualizado para incluir <AuthProvider>
+
 Este projeto está sob a licença MIT. Veja LICENSE para mais detalhes.
